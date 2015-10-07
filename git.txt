@@ -1,3 +1,0 @@
-git config user.name "Gorka Perez"
-git config user.email "nohtrim@gmail.com"
-git config github.user nohtrim

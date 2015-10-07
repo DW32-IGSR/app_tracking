@@ -1,6 +1,5 @@
 <?php
-class View
-{
+class View {
     private $model;
     private $controller;
     public function __construct($controller,$model) {
@@ -23,5 +22,14 @@ class View
         $body.="</body>";
         $respuesta=$head.$body;
         return $respuesta;
+    }
+    
+    public function formulario() {
+        echo "<form action='#' method='POST' name='formulario'>
+        Usuario: <input type='text' name='usuario'> <br>
+        Latitud: <input type='number' name='latitud'> <br>
+        Longitud: <input type='number' name='longitud'> <br>
+        <input type='submit' value='Enviar'>
+        </form>";
     }
 }
