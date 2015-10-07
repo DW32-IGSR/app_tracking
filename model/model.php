@@ -7,6 +7,6 @@ class Model {
     
     public function __construct() {
         //$this->string = "MVC + PHP = Awesome!";
-        $this->posicion=new Posicion(40,40,"12:00");
+        $this->posicion=new Posicion(50,50,"15:00");
     }
 }

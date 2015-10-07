@@ -8,6 +8,9 @@ class Posicion {
         $this->latitud = $latitud;
         $this->longitud = $longitud;
         $this->hora = $hora;
+        
+        //insercion en la base de datos si no existe
+        
     }
     public function mostrar() {
     	return "Posicion: latitud: ".$this->latitud." longitud: ".$this->longitud." hora: ".$this->hora;
