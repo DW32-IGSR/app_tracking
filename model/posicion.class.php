@@ -10,6 +10,6 @@ class Posicion {
         $this->hora = $hora;
     }
     public function mostrar() {
-    	$this->model->string = "Posicion: latitud: ".$latitud." longitud: ".$longitud." hora: ".$hora;
+    	return "Posicion: latitud: ".$this->latitud." longitud: ".$this->longitud." hora: ".$this->hora;
     }
 }

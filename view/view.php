@@ -14,9 +14,10 @@ class View {
         $head="<html><head>";
         $head.="</head>";
         $body="<body>";
-        $body.="<p>texto de prueba</p>";
+        $body.="<a href='index.php?action=mostrar'>mostrar</a>";
         //correccion para la clase
         //$posicion->new Posicion(40,40,12:00);
+        $body.="<p>".$this->model->posicion->mostrar()."</p>";
         $body.="";
         $body.="";
         $body.="</body>";
@@ -25,7 +26,7 @@ class View {
     }
     
     public function formulario() {
-        echo "<form action='controller.php?task=formulario' method='POST' name='formulario'>
+        echo "<form action='../controller/controller.php?task=formulario' method='POST' name='formulario'>
         Usuario: <input type='text' name='usuario'> <br>
         Latitud: <input type='number' name='latitud'> <br>
         Longitud: <input type='number' name='longitud'> <br>
