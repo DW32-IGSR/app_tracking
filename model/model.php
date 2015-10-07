@@ -1,11 +1,11 @@
 <?php
-include_once("posicion.php");
+include_once("posicion.class.php");
 class Model {
     public $string;
-    public $posicion;
+    //public $posicion;
     
     public function __construct() {
-        $this->string = "MVC + PHP = Awesome!";
-        $this->posicion=new Posicion(40,40,12:00);
+        //$this->string = "MVC + PHP = Awesome!";
+        //$this->posicion=new Posicion(40,40,12:00);
     }
 }

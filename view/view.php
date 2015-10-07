@@ -25,10 +25,11 @@ class View {
     }
     
     public function formulario() {
-        echo "<form action='#' method='POST' name='formulario'>
+        echo "<form action='controller.php?task=formulario' method='POST' name='formulario'>
         Usuario: <input type='text' name='usuario'> <br>
         Latitud: <input type='number' name='latitud'> <br>
         Longitud: <input type='number' name='longitud'> <br>
+        Hora: <input type='time' name='hora'> <br>
         <input type='submit' value='Enviar'>
         </form>";
     }

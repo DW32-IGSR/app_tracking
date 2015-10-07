@@ -8,4 +8,10 @@ class Controller
     public function clicked() {
     	$this->model->string = "Updated Data, thanks to MVC and PHP!";
     }
+    
+    public function formulario() {
+        $usuario = $_POST['usuario'];
+        $latitud = $_POST['latitud'];
+        $longitud = $_POST['longitud'];
+    }
 }

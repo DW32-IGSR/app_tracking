@@ -11,5 +11,4 @@
         $controller->{$_GET['action']}();
     }
     echo $view->output();
-    echo $view->formApp();
-    //prueba 2
+    echo $view->formulario();
