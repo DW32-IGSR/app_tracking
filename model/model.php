@@ -1,12 +1,51 @@
 <?php
 include("posicion.class.php");
 class Model {
-    public $string;
     public $posicion;
     public $datos;
+    public $latitud;
+    public $longitud;
+    public $hora;
+    private $id_usuario=1;
     
     public function __construct() {
         //$this->string = "MVC + PHP = Awesome!";
-        $this->posicion=new Posicion(50,50,"15:00");
+        //$this->posicion=new Posicion(50,50,"15:00");
+        //$this->posicion=$this->buscar_posiciones();
     }
+    
+    public function insertarPosicion($latitud, $longitud, $hora) {
+        
+        require_once("conexion.php");
+        $db = Conexion::conectar();
+        //falta el id usuario en el insert
+    	$stmt = $db->prepare('INSERT INTO posicion (latitud, longitud, hora) VALUES (:latitud,:longitud,:hora)');
+    	$stmt->bindParam(':latitud', $latitud);
+    	$stmt->bindParam(':longitud', $longitud);
+    	$stmt->bindParam(':hora', $hora);
+        $stmt->execute();
+        $lastid= $db -> lastInsertId();
+    }
+    
+    public function buscar_posiciones(){
+        require_once("conexion.php");
+        $db = Conexion::conectar();
+        //$sql="SELECT latitud, longitud, hora FROM posicion where id_usuario=".$id_usuario;
+        //$sql="SELECT latitud, longitud, hora FROM posicion WHERE id_usuario=".$this->id_usuario;
+        //echo $sql;
+    	$stmt = $db->prepare("SELECT latitud, longitud, hora FROM posicion WHERE id_usuario=:id_usuario");
+        $stmt->bindValue(":id_usuario", $this->id_usuario, PDO::PARAM_INT);
+        $stmt->execute();
+        $respuesta="";
+        foreach ($stmt->fetchAll() as $row) {
+            //var_dump($row);
+            //echo "hola?: ".$row['latitud'];
+            $posicion=new Posicion($row['latitud'],$row["longitud"],$row["hora"],$this->id_usuario);
+            $respuesta.= "<p>".$posicion->mostrar()."</p>";
+        }
+        return $respuesta;
+    } 
+    
+    // select
+    
 }

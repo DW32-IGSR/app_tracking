@@ -14,12 +14,12 @@ class View {
         $head="<html><head>";
         $head.="</head>";
         $body="<body>";
-        $body.="<a href='index.php?action=crear'>mostrar</a>";
-        //correccion para la clase
-        //$posicion->new Posicion(40,40,12:00);
-        $body.="<p>".$this->model->posicion->mostrar()."</p>";
+        //correccion primera carga
+        //$body.="<p>".$this->model->mostrar()."</p>";
+        $body.=$this->model->buscar_posiciones();
         $body.="";
         $body.="";
+        $body.="<a href='index.php?action=crear'>insertar</a>";
         $body.="</body>";
         $respuesta=$head.$body;
         return $respuesta;
