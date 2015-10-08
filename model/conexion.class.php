@@ -2,9 +2,7 @@
 class Conexion {
     private static $db;
 	function __construct() {
-				
 	}
-
     public static function conectar() {
 		// Connect if not already connected
 		if (is_null(self::$db)) {

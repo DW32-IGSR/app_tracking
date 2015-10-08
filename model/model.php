@@ -16,7 +16,7 @@ class Model {
     
     public function insertarPosicion($latitud, $longitud, $hora) {
         
-        require_once("conexion.php");
+        require_once("conexion.class.php");
         $db = Conexion::conectar();
         //falta el id usuario en el insert
     	$stmt = $db->prepare('INSERT INTO posicion (latitud, longitud, hora) VALUES (:latitud,:longitud,:hora)');
@@ -28,7 +28,7 @@ class Model {
     }
     
     public function buscar_posiciones(){
-        require_once("conexion.php");
+        require_once("conexion.class.php");
         $db = Conexion::conectar();
         //$sql="SELECT latitud, longitud, hora FROM posicion where id_usuario=".$id_usuario;
         //$sql="SELECT latitud, longitud, hora FROM posicion WHERE id_usuario=".$this->id_usuario;
