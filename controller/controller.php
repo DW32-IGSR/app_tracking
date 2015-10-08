@@ -27,7 +27,6 @@ class Controller {
         //$usuario = $_POST['usuario'];
         $latitud = $_POST['latitud'];
         $longitud = $_POST['longitud'];
-        $hora = $_POST['hora'];
-        $this->model->posicion=new Posicion($latitud,$longitud,$hora);
+        $this->model->insertarPosicion($latitud,$longitud);
     }
 }

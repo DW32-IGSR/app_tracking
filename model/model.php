@@ -5,7 +5,6 @@ class Model {
     public $datos;
     public $latitud;
     public $longitud;
-    public $hora;
     private $id_usuario=1;
     
     public function __construct() {
@@ -14,15 +13,16 @@ class Model {
         //$this->posicion=$this->buscar_posiciones();
     }
     
-    public function insertarPosicion($latitud, $longitud, $hora) {
+    public function insertarPosicion($latitud, $longitud) {
         
         require_once("conexion.class.php");
         $db = Conexion::conectar();
         //falta el id usuario en el insert
     	$stmt = $db->prepare('INSERT INTO posicion (latitud, longitud, hora) VALUES (:latitud,:longitud,:hora)');
+    	//INSERT INTO `posicion`(`latitud`, `longitud`, `id_usuario`, `hora`) VALUES (5465464,4564564645,1, CURRENT_TIMESTAMP)
     	$stmt->bindParam(':latitud', $latitud);
     	$stmt->bindParam(':longitud', $longitud);
-    	$stmt->bindParam(':hora', $hora);
+    	$stmt->bindParam(':hora', CURRENT_TIMESTAMP);
         $stmt->execute();
         $lastid= $db -> lastInsertId();
     }
