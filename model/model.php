@@ -17,11 +17,13 @@ class Model {
         require_once("conexion.class.php");
         $db = Conexion::conectar();
         //falta el id usuario en el insert
-    	$stmt = $db->prepare('INSERT INTO posicion (latitud, longitud, hora) VALUES (:latitud,:longitud,:hora)');
+    	$stmt = $db->prepare('INSERT INTO posicion (latitud, longitud, hora, id_usuario) VALUES (:latitud,:longitud,:hora,:id_usuario)');
     	//INSERT INTO `posicion`(`latitud`, `longitud`, `id_usuario`, `hora`) VALUES (5465464,4564564645,1, CURRENT_TIMESTAMP)
     	$stmt->bindParam(':latitud', $latitud);
     	$stmt->bindParam(':longitud', $longitud);
-    	$stmt->bindParam(':hora', CURRENT_TIMESTAMP);
+    	//$stmt->bindParam(':hora', CURRENT_TIMESTAMP); //error al enviar formulario
+    	$stmt->bindParam(':hora', date("Y-m-d h:i:s"));
+    	$stmt->bindParam(':id_usuario', $this->id_usuario);
         $stmt->execute();
         $lastid= $db -> lastInsertId();
     }
@@ -29,7 +31,6 @@ class Model {
     public function buscar_posiciones(){
         require_once("conexion.class.php");
         $db = Conexion::conectar();
-        //$sql="SELECT latitud, longitud, hora FROM posicion where id_usuario=".$id_usuario;
         //$sql="SELECT latitud, longitud, hora FROM posicion WHERE id_usuario=".$this->id_usuario;
         //echo $sql;
     	$stmt = $db->prepare("SELECT latitud, longitud, hora FROM posicion WHERE id_usuario=:id_usuario");
@@ -43,8 +44,5 @@ class Model {
             $respuesta.= "<p>".$posicion->mostrar()."</p>";
         }
         return $respuesta;
-    } 
-    
-    // select
-    
+    }
 }

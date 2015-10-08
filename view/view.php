@@ -30,7 +30,7 @@ class View {
         Usuario: <input type='text' name='usuario'> <br>
         Latitud: <input type='number' name='latitud'> <br>
         Longitud: <input type='number' name='longitud'> <br>
-        <input type='submit' value='Enviar'>
+        <input type='submit' name='crear' value='Enviar'>
         </form>";
     }
 }

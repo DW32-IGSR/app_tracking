@@ -12,3 +12,4 @@
     }
     echo $view->output();
     echo $view->formulario();
+    echo date("Y-m-d h:i:s");

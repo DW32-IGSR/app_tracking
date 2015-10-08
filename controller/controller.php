@@ -11,22 +11,17 @@ class Controller {
     	$this->model->string = "Updated Data, thanks to MVC and PHP!";
     }*/
     
-    public function crear() {
-    	$this->model->posicion=new Posicion(40,40,"12:00");
-    	
-    	$this->model->insertarPosicion(40,40,"12:00");
-    }
-    
-    public function mostrar() {
-        //bucle de posiciones creacion y muestra
-        //$this->model->posicion->mostrar();
-    	return $this->model->posicion->mostrar($this->model->posicion->buscar());
+    public function mostrar_posiciones() {
+    	$this->model->buscar_posiciones();
     }
     
     public function formulario() {
-        //$usuario = $_POST['usuario'];
-        $latitud = $_POST['latitud'];
-        $longitud = $_POST['longitud'];
-        $this->model->insertarPosicion($latitud,$longitud);
+        if ($_POST['crear']){
+            //$usuario = $_POST['usuario'];
+            $latitud = $_POST['latitud'];
+            $longitud = $_POST['longitud'];
+            $this->model->insertarPosicion($latitud,$longitud);
+        }
+
     }
 }
