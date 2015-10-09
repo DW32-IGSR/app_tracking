@@ -11,10 +11,15 @@ class View {
 	public function abrirHtml(){
 	    $abrir="<html><head>";
 	    $abrir.="<meta charset='UTF-8' />";
+	    $abrir.="<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyApO7P8vAubMM9T97jMJ2YDpAJuEeJ99yg&callback=initialize'
+        async defer></script>";
         $abrir.="</head>";
-        $abrir.="<body onload='mueveReloj(), initMap()'>
-        <div id='map'></div>";
+        $abrir.="<body onload='mueveReloj()'>";
         return $abrir;
+	}
+	
+	public function mapa(){
+	    return "<div id='map' style='width:500px;height:380px;'></div>";
 	}
 	
 	public function cerrarHtml(){
@@ -32,7 +37,6 @@ class View {
     
     public function formulario() {
         $respuesta = "<form action='index.php?action=formulario' method='POST' name='formulario'>
-        Usuario: <input type='text' name='usuario'> <br>
         Latitud: <input type='number' name='latitud'> <br>
         Longitud: <input type='number' name='longitud'> <br>
         <input type='submit' name='crear' value='Enviar'>
@@ -73,14 +77,16 @@ class View {
                     setTimeout("mueveReloj()",1000);
                 }
                 
-                function initMap() {
-                  // Create a map object and specify the DOM element for display.
-                  var map = new google.maps.Map(document.getElementById("map"), {
-                    center: {lat: -34.397, lng: 150.644},
-                    scrollwheel: false,
-                    zoom: 8
-                  });
+                function initialize() {
+                  var mapProp = {
+                    center:new google.maps.LatLng(51.508742,-0.120850),
+                    zoom:5,
+                    mapTypeId:google.maps.MapTypeId.ROADMAP
+                  };
+                  var map=new google.maps.Map(document.getElementById("map"),mapProp);
                 }
+                
+                google.maps.event.addDomListener(window, "load", initialize);
                 
                 </script> ';
         $reloj='<form name="form_reloj" align="center">
@@ -90,7 +96,7 @@ class View {
         return $respuesta;
     } 
     
-    public function datosUsuario(){
+    /*public function datosUsuario(){
         echo "joder ";
         require_once("model/usuario.class.php");
         //$this->usuario->mostrar();
@@ -107,5 +113,11 @@ class View {
             echo "<br/>";
         }    
         return $datos;
+    }*/
+    
+    public function cerrarSesion(){
+        //boton de cerrar sesion
+        return '<a href="index.php?action=destructorSesion">Cerrar Sesión </a>';
+        //return '<input type="button" onclick="location.href="index.php?action=destructorSesion;" value="Cerrar Sesión" />';
     }
 }

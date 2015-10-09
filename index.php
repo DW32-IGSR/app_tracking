@@ -12,11 +12,17 @@
     }
     echo $view->abrirhtml();
     echo $view->reloj();
-    echo $view->datosUsuario();
-    echo $view->output();
-    echo $view->formulario();
-    echo $view->login();
-    echo $view->register();
+    session_start();
+    if (isset($_SESSION['id_usuario'])){
+        echo $view->mapa();
+        echo $view->cerrarSesion();
+        echo $view->output();
+        echo $view->formulario();        
+    } else {
+        echo $view->login();
+        echo $view->register();        
+    }
+    //echo $view->datosUsuario();
     echo $view->cerrarhtml();
     
     //echo date("Y-m-d H:i:s");

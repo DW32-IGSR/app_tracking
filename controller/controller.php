@@ -16,10 +16,11 @@ class Controller {
     
     public function formulario() {
         if ($_POST['crear']){
-            //$usuario = $_POST['usuario'];
+            session_start();
+            $id_usuario = $_SESSION['id_usuario'];
             $latitud = $_POST['latitud'];
             $longitud = $_POST['longitud'];
-            $this->model->insertarPosicion($latitud,$longitud);
+            $this->model->insertarPosicion($id_usuario,$latitud,$longitud);
         }
 
     }
@@ -42,5 +43,12 @@ class Controller {
                 $this->model->registrarUsuario($usuario, $pass);
             }
         }
+    }
+    
+    public function destructorSesion(){
+        //vaciar la sesion
+        session_start();
+        session_destroy();
+        header("location:index.php");
     }
 }
