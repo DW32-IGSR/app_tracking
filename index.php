@@ -10,6 +10,10 @@
     if (isset($_GET['action']) && !empty($_GET['action'])) {
         $controller->{$_GET['action']}();
     }
+    echo $view->abrirhtml();
+    echo $view->reloj();
     echo $view->output();
     echo $view->formulario();
-    echo date("Y-m-d h:i:s");
+    echo $view->login();
+    echo $view->cerrarhtml();
+    //echo date("Y-m-d H:i:s");

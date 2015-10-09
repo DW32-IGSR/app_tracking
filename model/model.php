@@ -1,11 +1,16 @@
 <?php
 include("posicion.class.php");
+include("usuario.class.php");
 class Model {
     public $posicion;
     public $datos;
     public $latitud;
     public $longitud;
     private $id_usuario=1;
+    
+    public $nombre;
+    public $pass;
+    public $usuario;
     
     public function __construct() {
         //$this->string = "MVC + PHP = Awesome!";
@@ -22,7 +27,7 @@ class Model {
     	$stmt->bindParam(':latitud', $latitud);
     	$stmt->bindParam(':longitud', $longitud);
     	//$stmt->bindParam(':hora', CURRENT_TIMESTAMP); //error al enviar formulario
-    	$stmt->bindParam(':hora', date("Y-m-d h:i:s"));
+    	$stmt->bindParam(':hora', date("Y-m-d H:i:s"));
     	$stmt->bindParam(':id_usuario', $this->id_usuario);
         $stmt->execute();
         $lastid= $db -> lastInsertId();
@@ -42,6 +47,25 @@ class Model {
             //echo "hola?: ".$row['latitud'];
             $posicion=new Posicion($row['latitud'],$row["longitud"],$row["hora"],$this->id_usuario);
             $respuesta.= "<p>".$posicion->mostrar()."</p>";
+        }
+        return $respuesta;
+    }
+    
+    public function buscarUsuario($usuario, $pass) {
+        require_once("conexion.class.php");
+        $db = Conexion::conectar();
+        //$sql="SELECT latitud, longitud, hora FROM posicion WHERE id_usuario=".$this->id_usuario;
+        //echo $sql;
+    	$stmt = $db->prepare("SELECT * FROM usuario WHERE nombre=:nombre and pass=:pass");
+        $stmt->bindValue(":nombre", $this->nombre, PDO::PARAM_STR);
+        $stmt->bindValue(":pass", $this->pass, PDO::PARAM_STR);
+        $stmt->execute();
+        $respuesta="";
+        foreach ($stmt->fetchAll() as $row) {
+            //var_dump($row);
+            //echo "hola?: ".$row['latitud'];
+            $usuario=new Usuario($row['id_usuario'],$row["nombre"],$row["pass"]);
+            $respuesta.= "<p>".$usuario->mostrar()."</p>";
         }
         return $respuesta;
     }

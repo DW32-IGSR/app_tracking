@@ -24,4 +24,13 @@ class Controller {
         }
 
     }
+    
+    public function login() {
+        if ($_POST['login']){
+            $usuario = $_POST['usuario'];
+            $pass = $_POST['pass'];
+            //$this->model->insertarPosicion($latitud,$longitud);
+            $this->model->buscarUsuario($usuario, $pass);
+        }
+    }
 }
