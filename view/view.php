@@ -1,6 +1,7 @@
 <?php
 class View {
     private $model;
+    //private $usuario;    
     private $controller;
     public function __construct($controller,$model) {
         $this->controller = $controller;
@@ -11,7 +12,8 @@ class View {
 	    $abrir="<html><head>";
 	    $abrir.="<meta charset='UTF-8' />";
         $abrir.="</head>";
-        $abrir.="<body onload='mueveReloj()'>";
+        $abrir.="<body onload='mueveReloj(), initMap()'>
+        <div id='map'></div>";
         return $abrir;
 	}
 	
@@ -47,6 +49,16 @@ class View {
         return $respuesta;
     }
     
+    public function register() {
+        $respuesta = "<form action='index.php?action=register' method='POST' name='formulario_register'>
+        Usuario: <input type='text' name='usuario'> <br>
+        Contraseña: <input type='password' name='pass'> <br>
+        Repita la contraseña <input type='password' name='pass2'> <br>
+        <input type='submit' name='register' value='Registrar'>
+        </form>";
+        return $respuesta;
+    }
+    
     public function reloj(){
         $script='<script>function mueveReloj(){
                     momentoActual = new Date();
@@ -59,12 +71,41 @@ class View {
                     document.form_reloj.reloj.value = horaImprimible;
                 
                     setTimeout("mueveReloj()",1000);
-                }</script> ';
+                }
+                
+                function initMap() {
+                  // Create a map object and specify the DOM element for display.
+                  var map = new google.maps.Map(document.getElementById("map"), {
+                    center: {lat: -34.397, lng: 150.644},
+                    scrollwheel: false,
+                    zoom: 8
+                  });
+                }
+                
+                </script> ';
         $reloj='<form name="form_reloj" align="center">
                 <input type="text" name="reloj" size="10">
                 </form>';
         $respuesta=$reloj.$script;
         return $respuesta;
-    }
+    } 
     
+    public function datosUsuario(){
+        echo "joder ";
+        require_once("model/usuario.class.php");
+        //$this->usuario->mostrar();
+        $id_usu=Usuario::getIdUsu();
+        echo $id_usu;
+        //$id_usu=Usuario::id_usuario;
+        if(isset($id_usu)){
+            //$datos=Usuario::mostrar();
+            echo "1234";
+            echo "<br/>";
+        } else {
+            echo "<div>".$this->login()."</div>";
+            echo "5637";
+            echo "<br/>";
+        }    
+        return $datos;
+    }
 }

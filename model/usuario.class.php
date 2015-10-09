@@ -9,11 +9,11 @@ class Usuario {
         $this->nombre = $nombre;
         $this->pass = $pass;
     }
-    public function clicked() {
-    	//$this->model->string = "Updated Data, thanks to MVC and PHP!";
-    }
     
     public function mostrar() {
-    	return "Id_Usuario: ".$this->id_usuario." Nombre: ".$this->nombre." Contrasenya: ".$this->pass;
+    	return "Id_Usuario: ".$this->id_usuario." Nombre: ".$this->nombre;
+    }
+    public function getIdUsu(){
+        return $this->id_usuario;
     }
 }

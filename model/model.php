@@ -18,7 +18,6 @@ class Model {
     }
     
     public function insertarPosicion($latitud, $longitud) {
-        
         require_once("conexion.class.php");
         $db = Conexion::conectar();
         //falta el id usuario en el insert
@@ -39,7 +38,7 @@ class Model {
         //$sql="SELECT latitud, longitud, hora FROM posicion WHERE id_usuario=".$this->id_usuario;
         //echo $sql;
     	$stmt = $db->prepare("SELECT latitud, longitud, hora FROM posicion WHERE id_usuario=:id_usuario");
-        $stmt->bindValue(":id_usuario", $this->id_usuario, PDO::PARAM_INT);
+        $stmt->bindParam(":id_usuario", $this->id_usuario, PDO::PARAM_INT);
         $stmt->execute();
         $respuesta="";
         foreach ($stmt->fetchAll() as $row) {
@@ -57,16 +56,24 @@ class Model {
         //$sql="SELECT latitud, longitud, hora FROM posicion WHERE id_usuario=".$this->id_usuario;
         //echo $sql;
     	$stmt = $db->prepare("SELECT * FROM usuario WHERE nombre=:nombre and pass=:pass");
-        $stmt->bindValue(":nombre", $this->nombre, PDO::PARAM_STR);
-        $stmt->bindValue(":pass", $this->pass, PDO::PARAM_STR);
+        $stmt->bindParam(":nombre", $usuario, PDO::PARAM_STR);
+        $stmt->bindParam(":pass", md5($pass), PDO::PARAM_STR);
         $stmt->execute();
         $respuesta="";
         foreach ($stmt->fetchAll() as $row) {
-            //var_dump($row);
+            var_dump($row);
             //echo "hola?: ".$row['latitud'];
             $usuario=new Usuario($row['id_usuario'],$row["nombre"],$row["pass"]);
-            $respuesta.= "<p>".$usuario->mostrar()."</p>";
+            echo "<p>".$usuario->mostrar()."</p>";
         }
-        return $respuesta;
+    }
+    public function registrarUsuario($usuario, $pass){
+        require_once("conexion.class.php");
+        $db = Conexion::conectar();
+        $stmt = $db->prepare("INSERT INTO usuario (nombre, pass) VALUES (:nombre, :pass)");
+        $stmt->bindParam(":nombre", $usuario, PDO::PARAM_STR);
+        $stmt->bindParam(":pass", md5($pass), PDO::PARAM_STR);
+        $stmt->execute();
+        //$respuesta="";
     }
 }

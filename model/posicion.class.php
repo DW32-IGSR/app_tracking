@@ -15,10 +15,4 @@ class Posicion {
     public function mostrar() {
     	return "Posicion: latitud: ".$this->latitud." longitud: ".$this->longitud." hora: ".$this->hora." usuario: ".$this->id_usuario;
     }
-    
-    //cambiando de forma y de archivo
-    public function buscar(){
-        
-    }
-    
 }

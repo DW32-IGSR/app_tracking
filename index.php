@@ -12,8 +12,11 @@
     }
     echo $view->abrirhtml();
     echo $view->reloj();
+    echo $view->datosUsuario();
     echo $view->output();
     echo $view->formulario();
     echo $view->login();
+    echo $view->register();
     echo $view->cerrarhtml();
+    
     //echo date("Y-m-d H:i:s");

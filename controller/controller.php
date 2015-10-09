@@ -1,6 +1,5 @@
 <?php
 class Controller {
-    
     private $model;
     
     public function __construct($model) {
@@ -31,6 +30,17 @@ class Controller {
             $pass = $_POST['pass'];
             //$this->model->insertarPosicion($latitud,$longitud);
             $this->model->buscarUsuario($usuario, $pass);
+        }
+    }
+    
+    public function register(){
+        if ($_POST['register']){
+            $usuario = $_POST['usuario'];
+            $pass = $_POST['pass'];
+            $pass2 = $_POST['pass2'];
+            if($pass == $pass2){
+                $this->model->registrarUsuario($usuario, $pass);
+            }
         }
     }
 }
