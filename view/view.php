@@ -12,7 +12,7 @@ class View {
 	    $abrir="<html><head>";
 	    $abrir.="<meta charset='UTF-8' />";
 	    $abrir.="<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyApO7P8vAubMM9T97jMJ2YDpAJuEeJ99yg&callback=initialize'
-        async defer></script>";
+        async defer>map.setCenter(new GLatLng(-25.435514, 48.603516), 13)</script>";
         $abrir.="</head>";
         $abrir.="<body onload='mueveReloj()'>";
         return $abrir;
