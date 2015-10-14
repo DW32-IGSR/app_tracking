@@ -3,6 +3,10 @@ class View {
     private $model;
     //private $usuario;    
     private $controller;
+    private $x=43.327656;
+	private $y=-1.970592;
+	private $map;
+	
     public function __construct($controller,$model) {
         $this->controller = $controller;
         $this->model = $model;
@@ -11,11 +15,52 @@ class View {
 	public function abrirHtml(){
 	    $abrir="<html><head>";
 	    $abrir.="<meta charset='UTF-8' />";
-	    $abrir.="<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyApO7P8vAubMM9T97jMJ2YDpAJuEeJ99yg&callback=initialize'
-        async defer>map.setCenter(new GLatLng(-25.435514, 48.603516), 13)</script>";
+	    $abrir.=$this->scripter();
         $abrir.="</head>";
         $abrir.="<body onload='mueveReloj()'>";
         return $abrir;
+	}
+	
+	public function scripter(){
+
+	    $scripter="<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyApO7P8vAubMM9T97jMJ2YDpAJuEeJ99yg&callback=initialize'
+        async defer></script>";
+        $scripter.="<script>function initialize() {
+                        var mapProp = {
+                        center:new google.maps.LatLng($this->x,$this->y),
+                        zoom:16,
+                        mapTypeId:google.maps.MapTypeId.ROADMAP
+                      };
+                      mapa=new google.maps.Map(document.getElementById('map'),mapProp);
+                      
+                        var marker = new google.maps.Marker({
+                            position: new google.maps.LatLng($this->x,$this->y),
+                            map: mapa,
+                            title: 'app-tracking'
+                        });
+                        
+                        //recoger variables con ajax
+                        //$this->map = $_REQUEST[map];
+                        //http://www.uterra.com/codigo_php/codigo_php.php?ref=variables_javascript_a_php_con_ajax
+                    }
+                    google.maps.event.addDomListener(window, 'load', initialize);
+                    </script>";
+        //$scripter.=$this->marcarPosicion();
+        //echo "prueba 123 $map.";
+	    return $scripter;
+	}
+	
+	function marcarPosicion($x,$y){
+	    $posicion=
+	            "<script>
+	                var marker = new google.maps.Marker({
+                            position: new google.maps.LatLng($x,$y),
+                            //mapa siendo una variable global
+                            map: mapa,
+                            title: 'prueba 123'
+                    });
+	           </script>";
+	    return $posicion;
 	}
 	
 	public function mapa(){
@@ -76,18 +121,6 @@ class View {
                 
                     setTimeout("mueveReloj()",1000);
                 }
-                
-                function initialize() {
-                  var mapProp = {
-                    center:new google.maps.LatLng(51.508742,-0.120850),
-                    zoom:5,
-                    mapTypeId:google.maps.MapTypeId.ROADMAP
-                  };
-                  var map=new google.maps.Map(document.getElementById("map"),mapProp);
-                }
-                
-                google.maps.event.addDomListener(window, "load", initialize);
-                
                 </script> ';
         $reloj='<form name="form_reloj" align="center">
                 <input type="text" name="reloj" size="10">

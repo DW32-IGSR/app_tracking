@@ -38,12 +38,15 @@ class Model {
     	$stmt = $db->prepare("SELECT latitud, longitud, hora FROM posicion WHERE id_usuario=:id_usuario");
         $stmt->bindParam(":id_usuario", $_SESSION['id_usuario'], PDO::PARAM_INT);
         $stmt->execute();
-        $respuesta="";
+        $respuesta="\n";
         foreach ($stmt->fetchAll() as $row) {
             //var_dump($row);
             //echo "hola?: ".$row['latitud'];
             $posicion=new Posicion($row['latitud'],$row["longitud"],$row["hora"],$_SESSION['id_usuario']);
-            $respuesta.= "<p>".$posicion->mostrar()."</p>";
+            
+            $script=View::marcarPosicion($row['latitud'],$row["longitud"]);
+            
+            $respuesta.= "<p>".$posicion->mostrar()."</p>\n".$script."\n";
         }
         return $respuesta;
     }
