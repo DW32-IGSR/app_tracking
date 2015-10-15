@@ -13,50 +13,76 @@ class View {
     }
 	
 	public function abrirHtml(){
-	    $abrir="<html><head>";
-	    $abrir.="<meta charset='UTF-8' />";
-	    $abrir.=$this->scripter();
-        $abrir.="</head>";
-        $abrir.="<body onload='mueveReloj()'>";
+	    $abrir="<html>\n<head>\n";
+	    $abrir.="<meta charset='UTF-8' />\n";
+        //$abrir.="</head>\n";
+        $abrir.=$this->scripts();
         return $abrir;
 	}
 	
-	public function scripter(){
+	public function abrirBody(){
+	    $abrir.="</head>\n";
+	    $abrir="<body onload='mueveReloj()'>\n";
+        return $abrir;
+	}
+	
+	public function scripts(){
+	    $scripts = "<script>var marcadores=[];
+        </script>";
+	    return $scripts;
+	}
+	
+	public function scripterMapa(){
 
-	    $scripter="<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyApO7P8vAubMM9T97jMJ2YDpAJuEeJ99yg&callback=initialize'
-        async defer></script>";
-        $scripter.="<script>function initialize() {
-                        var mapProp = {
-                        center:new google.maps.LatLng($this->x,$this->y),
-                        zoom:16,
-                        mapTypeId:google.maps.MapTypeId.ROADMAP
-                        //$(#map).css(width)=screen.width;
-                      };
-                      mapa=new google.maps.Map(document.getElementById('map'),mapProp);
-                      colorin='azul';
-                        var marker = new google.maps.Marker({
-                            position: new google.maps.LatLng($this->x,$this->y),
-                            map: mapa,
-                            title: 'app-tracking'
-                        });
-                    }
-                    google.maps.event.addDomListener(window, 'load', initialize);
-                    </script>";
+	    $scripter="<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyApO7P8vAubMM9T97jMJ2YDpAJuEeJ99yg&callback=initialize' async defer></script>\n";
+        $scripter.="<script>
+        mapa='mapas';
+        colorin='azul';
+        function initialize() {
+            var mapProp = {
+                center:new google.maps.LatLng($this->x,$this->y),
+                zoom:16,
+                mapTypeId:google.maps.MapTypeId.ROADMAP
+            };
+          window.mapa=new google.maps.Map(document.getElementById('map'),mapProp);
+          var pos = new google.maps.LatLng($this->x,$this->y);
+            var marker = new google.maps.Marker({
+                position: pos,
+                map: mapa,
+                title: 'app-tracking'
+            });
+        //}
+        //probando array
+            alert(marcadores.length);
+            for (i = 0; i < marcadores.length; i++) {  
+                marker = new google.maps.Marker({
+                    //alert(marcadores[0][1]);//fail
+                    position: new google.maps.LatLng(marcadores[i][1], marcadores[i][2]),
+                    map: mapa
+                }); //probando array
+            }
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+        
+        </script>\n";
         //$scripter.=$this->marcarPosicion();
         //echo "prueba 123 $map.";
+        //$scripter.="</head>\n";
 	    return $scripter;
 	}
 	
 	function marcarPosicion($x,$y){
 	    $posicion=
 	            "<script>
-	                document.write(colorin);
+	                /*document.write(colorin);
+	                document.write(' '+mapa);
 	                var marker = new google.maps.Marker({
-                            position: new google.maps.LatLng($x,$y),
-                            //mapa siendo una variable global
-                            map: mapa,
-                            title: 'prueba 123'
-                    });
+                        position: new google.maps.LatLng($x,$y),
+                        //mapa siendo una variable global
+                        map: mapa,
+                        title: 'prueba 123'
+                    });*/
+                marcadores.push(['prueba',$x,$y]);    
 	           </script>";
 	    return $posicion;
 	}
@@ -120,9 +146,9 @@ class View {
                     setTimeout("mueveReloj()",1000);
                 }
                 </script> ';
-        $reloj='<form name="form_reloj" align="center">
-                <input type="text" name="reloj" size="10">
-                </form>';
+        $reloj="<form name='form_reloj' align='center'>
+                <input type='text' name='reloj' size='10'>
+                </form>\n";
         $respuesta=$reloj.$script;
         return $respuesta;
     } 

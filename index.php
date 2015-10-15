@@ -11,13 +11,16 @@
     if (isset($_GET['action']) && !empty($_GET['action'])) {
         $controller->{$_GET['action']}();
     }
-    echo $view->abrirhtml();
+    echo $view->abrirHtml();
+    //echo $view->scripter();
+    echo $view->abrirBody();
     echo $view->reloj();
     session_start();
     if (isset($_SESSION['id_usuario'])){
         echo $view->mapa();
         echo $view->cerrarSesion();
         echo $view->output();
+        echo $view->scripterMapa();
         echo $view->formulario();        
     } else {
         echo $view->login();
