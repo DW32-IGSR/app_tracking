@@ -32,7 +32,7 @@ class View {
                         mapTypeId:google.maps.MapTypeId.ROADMAP
                       };
                       mapa=new google.maps.Map(document.getElementById('map'),mapProp);
-                      
+                      colorin='azul';
                         var marker = new google.maps.Marker({
                             position: new google.maps.LatLng($this->x,$this->y),
                             map: mapa,
@@ -59,6 +59,7 @@ class View {
                             map: mapa,
                             title: 'prueba 123'
                     });
+                    document.write(colorin);
 	           </script>";
 	    return $posicion;
 	}
