@@ -40,17 +40,11 @@ class View {
         colorin='azul';
         function initialize() {
             var mapProp = {
-                center:new google.maps.LatLng($this->x,$this->y),
+                center:new google.maps.LatLng(marcadores[1][1],marcadores[1][2]),
                 zoom:16,
                 mapTypeId:google.maps.MapTypeId.ROADMAP
             };
-          window.mapa=new google.maps.Map(document.getElementById('map'),mapProp);
-          var pos = new google.maps.LatLng($this->x,$this->y);
-            var marker = new google.maps.Marker({
-                position: pos,
-                map: mapa,
-                title: 'app-tracking'
-            });
+          mapa=new google.maps.Map(document.getElementById('map'),mapProp);
         //}
         //probando array
             alert(marcadores.length);
@@ -71,16 +65,10 @@ class View {
 	    return $scripter;
 	}
 	
-	function marcarPosicion($x,$y){
+	static function marcarPosicion($x,$y){
 	//function marcarPosicion($title,$x,$y){
 	    $posicion=
 	            "<script>
-	                /*var marker = new google.maps.Marker({
-                        position: new google.maps.LatLng($x,$y),
-                        //mapa siendo una variable global
-                        map: mapa,
-                        title: 'prueba 123'
-                    });*/
                 //añadir un titulo en el array y en la base de datos 
                 //marcadores.push([$title,$x,$y]); 
                 marcadores.push(['prueba',$x,$y]);    
