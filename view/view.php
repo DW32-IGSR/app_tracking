@@ -30,6 +30,7 @@ class View {
                         center:new google.maps.LatLng($this->x,$this->y),
                         zoom:16,
                         mapTypeId:google.maps.MapTypeId.ROADMAP
+                        //$(#map).css(width)=screen.width;
                       };
                       mapa=new google.maps.Map(document.getElementById('map'),mapProp);
                       colorin='azul';
@@ -38,10 +39,6 @@ class View {
                             map: mapa,
                             title: 'app-tracking'
                         });
-                        
-                        //recoger variables con ajax
-                        //$this->map = $_REQUEST[map];
-                        //http://www.uterra.com/codigo_php/codigo_php.php?ref=variables_javascript_a_php_con_ajax
                     }
                     google.maps.event.addDomListener(window, 'load', initialize);
                     </script>";
@@ -53,19 +50,19 @@ class View {
 	function marcarPosicion($x,$y){
 	    $posicion=
 	            "<script>
+	                document.write(colorin);
 	                var marker = new google.maps.Marker({
                             position: new google.maps.LatLng($x,$y),
                             //mapa siendo una variable global
                             map: mapa,
                             title: 'prueba 123'
                     });
-                    document.write(colorin);
 	           </script>";
 	    return $posicion;
 	}
 	
 	public function mapa(){
-	    return "<div id='map' style='width:500px;height:380px;'></div>";
+	    return "<div id='map' style='width:100%;height:550px;'></div>";
 	}
 	
 	public function cerrarHtml(){
