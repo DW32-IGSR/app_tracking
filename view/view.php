@@ -56,9 +56,9 @@ class View {
             alert(marcadores.length);
             for (i = 0; i < marcadores.length; i++) {  
                 marker = new google.maps.Marker({
-                    //alert(marcadores[0][1]);//fail
                     position: new google.maps.LatLng(marcadores[i][1], marcadores[i][2]),
-                    map: mapa
+                    map: mapa,
+                    title: marcadores[i][0]
                 }); //probando array
             }
         }
@@ -72,16 +72,17 @@ class View {
 	}
 	
 	function marcarPosicion($x,$y){
+	//function marcarPosicion($title,$x,$y){
 	    $posicion=
 	            "<script>
-	                /*document.write(colorin);
-	                document.write(' '+mapa);
-	                var marker = new google.maps.Marker({
+	                /*var marker = new google.maps.Marker({
                         position: new google.maps.LatLng($x,$y),
                         //mapa siendo una variable global
                         map: mapa,
                         title: 'prueba 123'
                     });*/
+                //añadir un titulo en el array y en la base de datos 
+                //marcadores.push([$title,$x,$y]); 
                 marcadores.push(['prueba',$x,$y]);    
 	           </script>";
 	    return $posicion;

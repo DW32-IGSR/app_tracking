@@ -44,6 +44,7 @@ class Model {
             //echo "hola?: ".$row['latitud'];
             $posicion=new Posicion($row['latitud'],$row["longitud"],$row["hora"],$_SESSION['id_usuario']);
             
+            //$script=View::marcarPosicion($row['titulo'],$row['latitud'],$row["longitud"]);
             $script=View::marcarPosicion($row['latitud'],$row["longitud"]);
             
             $respuesta.= "<p>".$posicion->mostrar()."</p>\n".$script."\n";
