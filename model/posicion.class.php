@@ -15,6 +15,7 @@ class Posicion {
         //$this->model->insertarPosicion($latitud, $longitud, $hora, $id_usuario);
     }
     public function mostrar() {
-    	return "Posicion: latitud: ".$this->latitud." longitud: ".$this->longitud." hora: ".$this->hora." usuario: ".$this->id_usuario;
+    	//return "Posicion: latitud: ".$this->latitud." longitud: ".$this->longitud." hora: ".$this->hora." usuario: ".$this->id_usuario;
+    	return "Posicion: latitud: ".$this->latitud." longitud: ".$this->longitud." hora: ".$this->hora." usuario: ".$this->id_usuario."<button type='submit' name='editar' value=''> Editar </button>"."<button type='submit' name='borrar' value=''> Borrar </button>";
     }
 }

@@ -6,10 +6,7 @@ class Controller {
         $this->model = $model;
     }
     
-    /*public function clicked() {
-    	$this->model->string = "Updated Data, thanks to MVC and PHP!";
-    }*/
-    
+
     public function mostrar_posiciones() {
     	$this->model->buscar_posiciones();
     }
@@ -50,5 +47,19 @@ class Controller {
         session_start();
         session_destroy();
         header("location:index.php");
+    }
+    
+    //funcion para guardar la posicion desde un boton
+    public function marcarMiPosicion(){
+        $latitud;
+        $longitud;
+        insertarPosicion($_SESSION['id_usuario'],$latitud,$longitud);
+        header("location:index.php");
+    }
+    
+    public function editarPosicio() {
+        if ($_POST['editar']){
+            session_start();
+        }
     }
 }

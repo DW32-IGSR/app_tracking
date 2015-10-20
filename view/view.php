@@ -3,9 +3,6 @@ class View {
     private $model;
     //private $usuario;    
     private $controller;
-    private $x=43.327656;
-	private $y=-1.970592;
-	private $map;
 	
     public function __construct($controller,$model) {
         $this->controller = $controller;
@@ -40,14 +37,14 @@ class View {
         colorin='azul';
         function initialize() {
             var mapProp = {
-                center:new google.maps.LatLng(marcadores[1][1],marcadores[1][2]),
+                center:new google.maps.LatLng(marcadores[(marcadores.length-1)][1],marcadores[(marcadores.length-1)][2]),
                 zoom:16,
                 mapTypeId:google.maps.MapTypeId.ROADMAP
             };
           mapa=new google.maps.Map(document.getElementById('map'),mapProp);
         //}
         //probando array
-            alert(marcadores.length);
+            //alert(marcadores.length);
             for (i = 0; i < marcadores.length; i++) {  
                 marker = new google.maps.Marker({
                     position: new google.maps.LatLng(marcadores[i][1], marcadores[i][2]),
@@ -95,8 +92,8 @@ class View {
     
     public function formulario() {
         $respuesta = "<form action='index.php?action=formulario' method='POST' name='formulario'>
-        Latitud: <input type='number' name='latitud'> <br>
-        Longitud: <input type='number' name='longitud'> <br>
+        Latitud: <input type='text' name='latitud'> <br>
+        Longitud: <input type='text' name='longitud'> <br>
         <input type='submit' name='crear' value='Enviar'>
         </form>";
         return $respuesta;
@@ -141,6 +138,49 @@ class View {
         $respuesta=$reloj.$script;
         return $respuesta;
     } 
+    /*public function geolocalizacion(){
+        $script='<script>
+        function localizacion(){
+        	var content = document.getElementById("geolocation-test");
+        
+        	if (navigator.geolocation)
+        	{
+        		navigator.geolocation.getCurrentPosition(function(objPosition)
+        		{
+        			var lon = objPosition.coords.longitude;
+        			var lat = objPosition.coords.latitude;
+        
+        			content.innerHTML = "<p>Latitud: " + lat + "</p><p>Longitud: " + lon + "</p>";
+        
+        		}, function(objPositionError)
+        		{
+        			switch (objPositionError.code)
+        			{
+        				case objPositionError.PERMISSION_DENIED:
+        					content.innerHTML = "No se ha permitido el acceso a la posición del usuario.";
+        				break;
+        				case objPositionError.POSITION_UNAVAILABLE:
+        					content.innerHTML = "No se ha podido acceder a la información de su posición.";
+        				break;
+        				case objPositionError.TIMEOUT:
+        					content.innerHTML = "El servicio ha tardado demasiado tiempo en responder.";
+        				break;
+        				default:
+        					content.innerHTML = "Error desconocido.";
+        			}
+        		}, {
+        			maximumAge: 75000,
+        			timeout: 15000
+        		});
+        	}
+        	else
+        	{
+        		content.innerHTML = "Su navegador no soporta la API de geolocalización.";
+        	}
+        }
+        localizacion();
+        </script>';
+    }*/
     
     /*public function datosUsuario(){
         echo "joder ";
