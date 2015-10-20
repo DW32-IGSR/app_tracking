@@ -50,12 +50,12 @@ class Controller {
     }
     
     //funcion para guardar la posicion desde un boton
-    public function marcarMiPosicion(){
+    /*public function marcarMiPosicion(){
         $latitud;
         $longitud;
         insertarPosicion($_SESSION['id_usuario'],$latitud,$longitud);
         header("location:index.php");
-    }
+    }*/
     
     public function editarPosicio() {
         if ($_POST['editar']){
