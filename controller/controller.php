@@ -11,7 +11,7 @@ class Controller {
     	$this->model->buscar_posiciones();
     }
     
-    public function formulario() {
+    /*public function formulario() {
         if ($_POST['crear']){
             session_start();
             $id_usuario = $_SESSION['id_usuario'];
@@ -19,15 +19,15 @@ class Controller {
             $longitud = $_POST['longitud'];
             $this->model->insertarPosicion($id_usuario,$latitud,$longitud);
         }
-
-    }
+    }*/
     
     public function login() {
         if ($_POST['login']){
             $usuario = $_POST['usuario'];
             $pass = $_POST['pass'];
-            //$this->model->insertarPosicion($latitud,$longitud);
-            $this->model->buscarUsuario($usuario, $pass);
+            $lat = $_GET['lat'];
+            $long = $_GET['long'];
+            $this->model->buscarUsuario($usuario, $pass, $lat, $long);
         }
     }
     
@@ -56,10 +56,4 @@ class Controller {
         insertarPosicion($_SESSION['id_usuario'],$latitud,$longitud);
         header("location:index.php");
     }*/
-    
-    public function editarPosicio() {
-        if ($_POST['editar']){
-            session_start();
-        }
-    }
 }

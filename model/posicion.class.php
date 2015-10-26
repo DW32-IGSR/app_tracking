@@ -4,9 +4,11 @@ class Posicion {
     private $longitud;
     private $hora;
     private $id_usuario;
+    private $id_posicion;
     //private $marca;
     
-    public function __construct($latitud, $longitud, $hora, $id_usuario) {
+    public function __construct($id_posicion, $latitud, $longitud, $hora, $id_usuario) {
+        $this->id_posicion = $id_posicion;
         $this->latitud = $latitud;
         $this->longitud = $longitud;
         $this->hora = $hora;
@@ -16,6 +18,50 @@ class Posicion {
     }
     public function mostrar() {
     	//return "Posicion: latitud: ".$this->latitud." longitud: ".$this->longitud." hora: ".$this->hora." usuario: ".$this->id_usuario;
-    	return "Posicion: latitud: ".$this->latitud." longitud: ".$this->longitud." hora: ".$this->hora." usuario: ".$this->id_usuario."<button type='submit' name='editar' value=''> Editar </button>"."<button type='submit' name='borrar' value=''> Borrar </button>";
+    	return "Posicion: Id: ".$this->id_posicion." latitud: ".$this->latitud." longitud: ".$this->longitud." hora: ".$this->hora." usuario: ".$this->id_usuario."<form action='index.php?action=formulario' method='POST' name='varias'> <input type='submit' name='editar' value='Editar'>"."<input type='submit' name='borrar' value='Borrar'> </form>";
+    }
+    
+    public function formEditarPosicion() {
+        if ($_POST['editar']){
+            $respuesta = "<form action='#' method='POST' name='formulario'>
+                <input type='hidden' name='id_pos'> <br>
+                Latitud: <input type='text' name='latitud' value=''> <br>
+                Longitud: <input type='text' name='longitud' value=''> <br>
+                <input type='submit' name='edit' value='Editar'>
+                </form>";
+            return $respuesta;
+        }
+    }
+    
+    public function valoresFormEditarPosicion() {
+        if ($_POST['editar']){
+            $id_usuario = $_SESSION['id_usuario'];
+            $id_posicion = $_POST['id_pos'];
+            $latitud = $_POST['latitud'];
+            $longitud = $_POST['longitud'];
+            $this->model->editarPosicion($id_posicion, $id_usuario,$latitud,$longitud);
+        }
+    }
+    
+    public function editarPosicion($id_posicion, $id_usuario, $latitud, $longitud) {
+            require_once("conexion.class.php");
+            $db = Conexion::conectar();
+        	$stmt = $db->prepare('UPDATE posicion SET latitud=:latitud AND longitud=:longitud WHERE id_posicion=:id_posicion AND id_usuario=:id_usuario');
+        	$stmt->bindParam(':id_posicion', $id_posicion);
+        	$stmt->bindParam(':id_usuario', $id_usuario);
+        	$stmt->bindParam(':latitud', $latitud);
+    	    $stmt->bindParam(':longitud', $longitud); 
+            $stmt->execute();
+    }
+    
+    public function borrarPosicion($id_usuario, $latitud, $longitud, $id_posicion) {
+        if ($_POST['borrar']){
+            require_once("conexion.class.php");
+            $db = Conexion::conectar();
+        	$stmt = $db->prepare('DELETE FROM posicion WHERE id_posicion=:id_posicion AND id_usuario=:id_usuario');
+        	$stmt->bindParam(':id_posicion', $id_posicion);
+        	$stmt->bindParam(':id_usuario', $id_usuario);
+            $stmt->execute();
+        }
     }
 }

@@ -56,8 +56,6 @@ class View {
         google.maps.event.addDomListener(window, 'load', initialize);
         
         </script>\n";
-        //$scripter.=$this->marcarPosicion();
-        //echo "prueba 123 $map.";
         //$scripter.="</head>\n";
 	    return $scripter;
 	}
@@ -100,7 +98,20 @@ class View {
     }
     
     public function login() {
-        $respuesta = "<form action='index.php?action=login' method='POST' name='formulario_login'>
+        $respuesta = "
+<script type='text/javascript'>
+    if (typeof navigator.geolocation == 'object'){
+        navigator.geolocation.getCurrentPosition(mostrar_ubicacion);
+    }
+    function mostrar_ubicacion(p){
+        var latti = p.coords.latitude;
+        var longi = p.coords.longitude;
+        //alert(latti+' , '+longi);
+        document.getElementById('formulario').action='index.php?action=login&lat='+latti+'&long='+longi;
+    }
+</script>
+        <!--<form action='index.php?action=login' method='POST' name='formulario_login'>-->
+        <form id='formulario' action='' method='POST' name='formulario_login'>
         Usuario: <input type='text' name='usuario'> <br>
         Contraseña: <input type='password' name='pass'> <br>
         <input type='submit' name='login' value='Entrar'>
@@ -204,6 +215,21 @@ class View {
     public function cerrarSesion(){
         //boton de cerrar sesion
         return '<a href="index.php?action=destructorSesion">Cerrar Sesión </a>';
-        //return '<input type="button" onclick="location.href="index.php?action=destructorSesion;" value="Cerrar Sesión" />';
+        //return '<input type="button" onclick="location.href="controller.php?action=destructorSesion;" value="Cerrar Sesión" />';
     }
+    public function enviarPosicion(){
+       $script='<script type="text/javascript">
+        if (typeof navigator.geolocation == "object"){
+            navigator.geolocation.getCurrentPosition(mostrar_ubicacion);
+        }
+        function mostrar_ubicacion(p){
+           // document.getElementById("TE").innerHTML = ("posición: "+p.coords.latitude+","+p.coords.longitude );
+            var latti = p.coords.latitude;
+            var longgii = p.coords.longitude;
+            document.getElementById("latitud").value = latti;
+            document.getElementById("longitud").value = longgii;
+        }
+        </script>';
+        return $script;
+    }  
 }
