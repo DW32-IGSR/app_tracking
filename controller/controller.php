@@ -5,21 +5,20 @@ class Controller {
     public function __construct($model) {
         $this->model = $model;
     }
-    
 
     public function mostrar_posiciones() {
     	$this->model->buscar_posiciones();
     }
     
-    /*public function formulario() {
-        if ($_POST['crear']){
+    public function posicionar() {
+        if ($_POST['crearPosicion']){
             session_start();
             $id_usuario = $_SESSION['id_usuario'];
             $latitud = $_POST['latitud'];
             $longitud = $_POST['longitud'];
             $this->model->insertarPosicion($id_usuario,$latitud,$longitud);
         }
-    }*/
+    }
     
     public function login() {
         if ($_POST['login']){
@@ -56,4 +55,18 @@ class Controller {
         insertarPosicion($_SESSION['id_usuario'],$latitud,$longitud);
         header("location:index.php");
     }*/
+    
+    public function borrarPosicion() {
+        if ($_POST['borrar']){
+            $id_usuario = $_SESSION['id_usuario'];
+            $id_posicion = $_POST['id_posicion'];
+            $this->model->borrarPosicion($id_usuario, $id_posicion);
+        }else if($_POST['editar']){
+            //$id_usuario = $_SESSION['id_usuario'];
+            //$id_posicion = $_POST['id_pos'];
+            //$latitud = $_POST['latitud'];
+            //$longitud = $_POST['longitud'];
+            //$this->model->editarPosicion($id_posicion, $id_usuario,$latitud,$longitud);  
+        }
+    }
 }

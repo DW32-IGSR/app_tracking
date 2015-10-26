@@ -21,7 +21,7 @@
         echo $view->cerrarSesion();
         echo $view->output();
         echo $view->scripterMapa();
-        echo $view->formulario();        
+        echo $view->posicionManual();        
     } else {
         echo $view->login();
         echo $view->register();        

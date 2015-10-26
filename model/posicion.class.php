@@ -17,8 +17,7 @@ class Posicion {
         //$this->model->insertarPosicion($latitud, $longitud, $hora, $id_usuario);
     }
     public function mostrar() {
-    	//return "Posicion: latitud: ".$this->latitud." longitud: ".$this->longitud." hora: ".$this->hora." usuario: ".$this->id_usuario;
-    	return "Posicion: Id: ".$this->id_posicion." latitud: ".$this->latitud." longitud: ".$this->longitud." hora: ".$this->hora." usuario: ".$this->id_usuario."<form action='index.php?action=formulario' method='POST' name='varias'> <input type='submit' name='editar' value='Editar'>"."<input type='submit' name='borrar' value='Borrar'> </form>";
+       	return "<form action='index.php?action=borrarPosicion' method='POST' name='varias'>Posicion: Id: $this->id_posicion <input hidden name='id_posicion' value=$this->id_posicion /> latitud: <input name='latitud' value=$this->latitud /> longitud: <input name='longitud' value=$this->longitud /> hora: $this->hora usuario: $this->id_usuario <input type='submit' name='editar' value='Editar'><input type='submit' name='borrar' value='Borrar'></form>";
     }
     
     public function formEditarPosicion() {
@@ -52,16 +51,5 @@ class Posicion {
         	$stmt->bindParam(':latitud', $latitud);
     	    $stmt->bindParam(':longitud', $longitud); 
             $stmt->execute();
-    }
-    
-    public function borrarPosicion($id_usuario, $latitud, $longitud, $id_posicion) {
-        if ($_POST['borrar']){
-            require_once("conexion.class.php");
-            $db = Conexion::conectar();
-        	$stmt = $db->prepare('DELETE FROM posicion WHERE id_posicion=:id_posicion AND id_usuario=:id_usuario');
-        	$stmt->bindParam(':id_posicion', $id_posicion);
-        	$stmt->bindParam(':id_usuario', $id_usuario);
-            $stmt->execute();
-        }
     }
 }

@@ -30,6 +30,17 @@ class Model {
         $lastid= $db -> lastInsertId();
     }
     
+    public function borrarPosicion($id_usuario, $id_posicion) {
+        if ($_POST['borrar']){
+            require_once("conexion.class.php");
+            $db = Conexion::conectar();
+        	$stmt = $db->prepare('DELETE FROM posicion WHERE id_posicion=:id_posicion AND id_usuario=:id_usuario');
+        	$stmt->bindParam(':id_posicion', $id_posicion, PDO::PARAM_INT);
+        	$stmt->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+            $stmt->execute();
+        }
+    }
+    
     public function buscar_posiciones(){
         require_once("conexion.class.php");
         $db = Conexion::conectar();
@@ -39,7 +50,7 @@ class Model {
         $stmt->bindParam(":id_usuario", $_SESSION['id_usuario'], PDO::PARAM_INT);
         $stmt->execute();
         $respuesta="\n";
-        $respuesta.="<table>";
+        $respuesta.="<table border=1>";
         foreach ($stmt->fetchAll() as $row) {
             //var_dump($row);
             //echo "hola?: ".$row['latitud'];

@@ -88,11 +88,11 @@ class View {
         return $respuesta;
     }
     
-    public function formulario() {
-        $respuesta = "<form action='index.php?action=formulario' method='POST' name='formulario'>
+    public function posicionManual() {
+        $respuesta = "<form action='index.php?action=posicionar' method='POST' name='posicionar'>
         Latitud: <input type='text' name='latitud'> <br>
         Longitud: <input type='text' name='longitud'> <br>
-        <input type='submit' name='crear' value='Enviar'>
+        <input type='submit' name='crearPosicion' value='Enviar'>
         </form>";
         return $respuesta;
     }
@@ -144,73 +144,11 @@ class View {
                 }
                 </script> ';
         $reloj="<form name='form_reloj' align='center'>
-                <input type='text' name='reloj' size='10'>
+                <input disabled type='text' name='reloj' size='10'>
                 </form>\n";
         $respuesta=$reloj.$script;
         return $respuesta;
     } 
-    /*public function geolocalizacion(){
-        $script='<script>
-        function localizacion(){
-        	var content = document.getElementById("geolocation-test");
-        
-        	if (navigator.geolocation)
-        	{
-        		navigator.geolocation.getCurrentPosition(function(objPosition)
-        		{
-        			var lon = objPosition.coords.longitude;
-        			var lat = objPosition.coords.latitude;
-        
-        			content.innerHTML = "<p>Latitud: " + lat + "</p><p>Longitud: " + lon + "</p>";
-        
-        		}, function(objPositionError)
-        		{
-        			switch (objPositionError.code)
-        			{
-        				case objPositionError.PERMISSION_DENIED:
-        					content.innerHTML = "No se ha permitido el acceso a la posición del usuario.";
-        				break;
-        				case objPositionError.POSITION_UNAVAILABLE:
-        					content.innerHTML = "No se ha podido acceder a la información de su posición.";
-        				break;
-        				case objPositionError.TIMEOUT:
-        					content.innerHTML = "El servicio ha tardado demasiado tiempo en responder.";
-        				break;
-        				default:
-        					content.innerHTML = "Error desconocido.";
-        			}
-        		}, {
-        			maximumAge: 75000,
-        			timeout: 15000
-        		});
-        	}
-        	else
-        	{
-        		content.innerHTML = "Su navegador no soporta la API de geolocalización.";
-        	}
-        }
-        localizacion();
-        </script>';
-    }*/
-    
-    /*public function datosUsuario(){
-        echo "joder ";
-        require_once("model/usuario.class.php");
-        //$this->usuario->mostrar();
-        $id_usu=Usuario::getIdUsu();
-        echo $id_usu;
-        //$id_usu=Usuario::id_usuario;
-        if(isset($id_usu)){
-            //$datos=Usuario::mostrar();
-            echo "1234";
-            echo "<br/>";
-        } else {
-            echo "<div>".$this->login()."</div>";
-            echo "5637";
-            echo "<br/>";
-        }    
-        return $datos;
-    }*/
     
     public function cerrarSesion(){
         //boton de cerrar sesion
