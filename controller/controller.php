@@ -16,7 +16,8 @@ class Controller {
             $id_usuario = $_SESSION['id_usuario'];
             $latitud = $_POST['latitud'];
             $longitud = $_POST['longitud'];
-            $this->model->insertarPosicion($id_usuario,$latitud,$longitud);
+            $titulo = $_POST['titulo'];
+            $this->model->insertarPosicion($id_usuario,$latitud,$longitud, $titulo);
         }
     }
     
@@ -26,7 +27,9 @@ class Controller {
             $pass = $_POST['pass'];
             $lat = $_GET['lat'];
             $long = $_GET['long'];
-            $this->model->buscarUsuario($usuario, $pass, $lat, $long);
+            //configurando para insertar titulo
+            //$titulo = $_GET['titulo'];
+            $this->model->buscarUsuario($usuario, $pass, $lat, $long/*, $titulo*/);
         }
     }
     
@@ -48,25 +51,18 @@ class Controller {
         header("location:index.php");
     }
     
-    //funcion para guardar la posicion desde un boton
-    /*public function marcarMiPosicion(){
-        $latitud;
-        $longitud;
-        insertarPosicion($_SESSION['id_usuario'],$latitud,$longitud);
-        header("location:index.php");
-    }*/
-    
-    public function borrarPosicion() {
+    public function modificarPosicion() {
         if ($_POST['borrar']){
             $id_usuario = $_SESSION['id_usuario'];
             $id_posicion = $_POST['id_posicion'];
             $this->model->borrarPosicion($id_usuario, $id_posicion);
         }else if($_POST['editar']){
-            //$id_usuario = $_SESSION['id_usuario'];
-            //$id_posicion = $_POST['id_pos'];
-            //$latitud = $_POST['latitud'];
-            //$longitud = $_POST['longitud'];
-            //$this->model->editarPosicion($id_posicion, $id_usuario,$latitud,$longitud);  
+            $titulo = $_POST['titulo'];
+            $id_posicion = $_POST['id_posicion'];
+            $latitud = $_POST['latitud'];
+            $longitud = $_POST['longitud'];
+            //echo "$id_posicion, $latitud, $longitud, $titulo";
+            $this->model->editarPosicion($id_posicion, $latitud, $longitud, $titulo); 
         }
     }
 }

@@ -17,8 +17,9 @@
     echo $view->reloj();
     session_start();
     if (isset($_SESSION['id_usuario'])){
+        echo $view->navbar();
+        //echo $view->cerrarSesion();        
         echo $view->mapa();
-        echo $view->cerrarSesion();
         echo $view->output();
         echo $view->scripterMapa();
         echo $view->posicionManual();        

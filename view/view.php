@@ -12,17 +12,69 @@ class View {
 	public function abrirHtml(){
 	    $abrir="<html>\n<head>\n";
 	    $abrir.="<meta charset='UTF-8' />\n";
+	    $abrir.="<link href='css/bootstrap.min.css' rel='stylesheet'>";
+	    $abrir.="<link href='css/bootstrap-theme.min.css' rel='stylesheet'>";
+	    $abrir.="<link href='css/mystyles.css' rel='stylesheet'>";
+	    $abrir.='<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>';
+	    $abrir.='<script src="js/bootstrap.min.js"></script>';
         //$abrir.="</head>\n";
         $abrir.=$this->scripts();
         return $abrir;
 	}
 	
 	public function abrirBody(){
-	    $abrir.="</head>\n";
-	    $abrir="<body onload='mueveReloj()'>\n";
+	    $abrir="</head>\n";
+	    $abrir.="<body onload='mueveReloj()'>\n";
         return $abrir;
 	}
-	
+	public function navbar(){
+	    $navbar='<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">APP-TRACKING By Ruben, Gorka, Iosu y Sergio</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#"></span>Home</a></li>
+
+                    <!--<li><a href="#">About</a></li>-->
+                    <!--<li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            Menu<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Appetizers</a></li>
+                            <li><a href="#">Main Courses</a></li>
+                            <li><a href="#">Desserts</a></li>
+                            <li><a href="#">Drinks</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Specials</li>
+                            <li><a href="#">Lunch Buffet</a></li>
+                            <li><a href="#">Weekend Brunch</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Contact</a></li>-->
+                </ul>
+                <ul class="nav navbar-nav navbar-center">
+                    <li>
+                        <a id="reloj">cargando reloj</a>
+                    </li> 
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="index.php?action=destructorSesion">cerrar sesion</a></li>
+                </ul>                
+            </div>    
+        </div>
+
+    </nav>';
+	    return $navbar;
+	}    
 	public function scripts(){
 	    $scripts = "<script>var marcadores=[];
         </script>";
@@ -44,7 +96,7 @@ class View {
           mapa=new google.maps.Map(document.getElementById('map'),mapProp);
         //}
         //probando array
-            //alert(marcadores.length);
+            //alert(marcadores);
             for (i = 0; i < marcadores.length; i++) {  
                 marker = new google.maps.Marker({
                     position: new google.maps.LatLng(marcadores[i][1], marcadores[i][2]),
@@ -60,13 +112,13 @@ class View {
 	    return $scripter;
 	}
 	
-	static function marcarPosicion($x,$y){
-	//function marcarPosicion($title,$x,$y){
+	//static function marcarPosicion($x,$y){
+	static function marcarPosicion($title,$x,$y){
 	    $posicion=
 	            "<script>
                 //añadir un titulo en el array y en la base de datos 
-                //marcadores.push([$title,$x,$y]); 
-                marcadores.push(['prueba',$x,$y]);    
+                marcadores.push(['$title',$x,$y]); 
+                //marcadores.push(['prueba',$x,$y]);    
 	           </script>";
 	    return $posicion;
 	}
@@ -82,16 +134,23 @@ class View {
 	}
 	
     public function output(){
-        //return '<p><a href="ejemplo.php?action=clicked">' . $this->model->string . "</a></p>";
-        //$body.="<p>".$this->model->mostrar()."</p>";
         $respuesta.=$this->model->buscar_posiciones();
         return $respuesta;
     }
     
     public function posicionManual() {
-        $respuesta = "<form action='index.php?action=posicionar' method='POST' name='posicionar'>
-        Latitud: <input type='text' name='latitud'> <br>
-        Longitud: <input type='text' name='longitud'> <br>
+        $respuesta = "<br><form action='index.php?action=posicionar' method='POST' name='posicionar'>
+        <table>
+            <tr>
+                <td> Titulo: </td> <td> <input type='text' name='titulo'> </td>
+            </tr>
+            <tr>
+                <td> Latitud: </td> <td> <input type='text' name='latitud'> </td>
+            </tr>
+            <tr>
+                <td> Longitud: </td> <td> <input type='text' name='longitud'> </td>
+            </tr>
+        </table>
         <input type='submit' name='crearPosicion' value='Enviar'>
         </form>";
         return $respuesta;
@@ -106,7 +165,10 @@ class View {
     function mostrar_ubicacion(p){
         var latti = p.coords.latitude;
         var longi = p.coords.longitude;
+        //cambiar el titulo
+        //var titulo = 'prueba32';
         //alert(latti+' , '+longi);
+        //document.getElementById('formulario').action='index.php?action=login&titulo='+titulo+'&lat='+latti+'&long='+longi;
         document.getElementById('formulario').action='index.php?action=login&lat='+latti+'&long='+longi;
     }
 </script>
@@ -138,16 +200,12 @@ class View {
                 
                     horaImprimible = hora + " : " + minuto + " : " + segundo;
                 
-                    document.form_reloj.reloj.value = horaImprimible;
-                
+                    document.getElementById("reloj").innerHTML = horaImprimible;
+                    
                     setTimeout("mueveReloj()",1000);
                 }
                 </script> ';
-        $reloj="<form name='form_reloj' align='center'>
-                <input disabled type='text' name='reloj' size='10'>
-                </form>\n";
-        $respuesta=$reloj.$script;
-        return $respuesta;
+        return $script;
     } 
     
     public function cerrarSesion(){
