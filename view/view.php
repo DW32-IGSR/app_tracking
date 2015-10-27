@@ -24,7 +24,7 @@ class View {
 	
 	public function abrirBody(){
 	    $abrir="</head>\n";
-	    $abrir.="<body onload='mueveReloj()'>\n";
+	    $abrir.="<body  onload='mueveReloj()'>\n";
         return $abrir;
 	}
 	public function navbar(){
@@ -67,7 +67,7 @@ class View {
                     </li> 
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="index.php?action=destructorSesion">cerrar sesion</a></li>
+                    <li><a href="index.php?action=destructorSesion">Cerrar sesion</a></li>
                 </ul>                
             </div>    
         </div>

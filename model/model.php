@@ -75,7 +75,7 @@ class Model {
         $stmt->execute();
         $respuesta="\n";
         $respuesta.="<br><br><table class='table table-striped'>";
-        $respuesta.="<tr><td></td><td>Id</td><td>Nombre</td><td>Latitud</td><td>Longitud</td><td>Fecha</td><td>Usuario</td><td></td></tr>";
+        $respuesta.="<tr><td></td><th>Id</th><th>Nombre</th><th>Latitud</th><th>Longitud</th><th>Fecha</th><th>Usuario</th><td></td></tr>";
         foreach ($stmt->fetchAll() as $row) {
             //var_dump($row);
             //echo "hola?: ".$row['latitud'];
@@ -87,7 +87,7 @@ class Model {
             $respuesta.= "<td>".$posicion->mostrar()."</td>\n".$script."\n";
             $respuesta.="</tr>";
         }
-        $respuesta.="<tr><td></td><td>Id</td><td>Nombre</td><td>Latitud</td><td>Longitud</td><td>Fecha</td><td>Usuario</td><td></td></tr>";
+        $respuesta.="<tr><td></td><th>Id</th><th>Nombre</th><th>Latitud</th><th>Longitud</th><th>Fecha</th><th>Usuario</th><td></td></tr>";
         $respuesta.="</table>";
         return $respuesta;
     }
