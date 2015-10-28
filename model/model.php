@@ -74,21 +74,15 @@ class Model {
         $stmt->bindParam(":id_usuario", $_SESSION['id_usuario'], PDO::PARAM_INT);
         $stmt->execute();
         $respuesta="\n";
-        $respuesta.="<br><br><table class='table table-striped'>";
-        $respuesta.="<tr><td></td><th>Id</th><th>Nombre</th><th>Latitud</th><th>Longitud</th><th>Fecha</th><th>Usuario</th><td></td></tr>";
         foreach ($stmt->fetchAll() as $row) {
             //var_dump($row);
             //echo "hola?: ".$row['latitud'];
             $posicion=new Posicion($row['id_posicion'],$row['latitud'],$row["longitud"],$row["hora"],$_SESSION['id_usuario'], $row['titulo']);
-            
             $script=View::marcarPosicion($row['titulo'],$row['latitud'],$row["longitud"]);
             //$script=View::marcarPosicion($row['latitud'],$row["longitud"]);
-            $respuesta.="<tr>";
-            $respuesta.= "<td>".$posicion->mostrar()."</td>\n".$script."\n";
-            $respuesta.="</tr>";
+            $respuesta.= "<tr>".$posicion->mostrar()."</tr>\n".$script."\n";
         }
-        $respuesta.="<tr><td></td><th>Id</th><th>Nombre</th><th>Latitud</th><th>Longitud</th><th>Fecha</th><th>Usuario</th><td></td></tr>";
-        $respuesta.="</table>";
+
         return $respuesta;
     }
     

@@ -37,37 +37,37 @@ class View {
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">APP-TRACKING By Ruben, Gorka, Iosu y Sergio</a>
+                <a class="navbar-brand" href="#">APP-TRACKING</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#"></span>Home</a></li>
 
                     <!--<li><a href="#">About</a></li>-->
-                    <!--<li class="dropdown">
+                    <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            Menu<span class="caret"></span>
+                            Autores<span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Appetizers</a></li>
-                            <li><a href="#">Main Courses</a></li>
-                            <li><a href="#">Desserts</a></li>
-                            <li><a href="#">Drinks</a></li>
-                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Rubén Álvarez</a></li>
+                            <li><a href="#">Gorka Pérez</a></li>
+                            <li><a href="#">Iosu Recalde</a></li>
+                            <li><a href="#">Sergio Varela</a></li>
+                            <!--<li role="separator" class="divider"></li>
                             <li class="dropdown-header">Specials</li>
                             <li><a href="#">Lunch Buffet</a></li>
-                            <li><a href="#">Weekend Brunch</a></li>
+                            <li><a href="#">Weekend Brunch</a></li>-->
                         </ul>
                     </li>
-                    <li><a href="#">Contact</a></li>-->
+                    <!--<li><a href="#">Contact</a></li>-->
                 </ul>
                 <ul class="nav navbar-nav navbar-center">
                     <li>
-                        <a id="reloj">cargando reloj</a>
+                        <a id="reloj">Cargando reloj</a>
                     </li> 
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="index.php?action=destructorSesion">Cerrar sesion</a></li>
+                    <li><a href="index.php?action=destructorSesion">Cerrar sesión</a></li>
                 </ul>                
             </div>    
         </div>
@@ -134,7 +134,16 @@ class View {
 	}
 	
     public function output(){
+        $respuesta.="<table class='table table-striped'>
+        <tr>
+            <th>Id</th><th>Nombre</th><th>Latitud</th><th>Longitud</th><th>Fecha</th><th>Usuario</th><td></td>
+        </tr>";
         $respuesta.=$this->model->buscar_posiciones();
+        $respuesta.="       
+        <tr>
+            <th>Id</th><th>Nombre</th><th>Latitud</th><th>Longitud</th><th>Fecha</th><th>Usuario</th><td></td>
+        </tr>";
+        $respuesta.="</table>";        
         return $respuesta;
     }
     
@@ -142,7 +151,7 @@ class View {
         $respuesta = "<br><form action='index.php?action=posicionar' method='POST' name='posicionar'>
         <table>
             <tr>
-                <td> Titulo: </td> <td> <input type='text' name='titulo'> </td>
+                <td> Título: </td> <td> <input type='text' name='titulo'> </td>
             </tr>
             <tr>
                 <td> Latitud: </td> <td> <input type='text' name='latitud'> </td>
@@ -165,7 +174,6 @@ class View {
     function mostrar_ubicacion(p){
         var latti = p.coords.latitude;
         var longi = p.coords.longitude;
-        //cambiar el titulo
         //var titulo = 'prueba32';
         //alert(latti+' , '+longi);
         //document.getElementById('formulario').action='index.php?action=login&titulo='+titulo+'&lat='+latti+'&long='+longi;
@@ -174,19 +182,37 @@ class View {
 </script>
         <!--<form action='index.php?action=login' method='POST' name='formulario_login'>-->
         <form id='formulario' action='' method='POST' name='formulario_login'>
-        Usuario: <input type='text' name='usuario'> <br>
-        Contraseña: <input type='password' name='pass'> <br>
-        <input type='submit' name='login' value='Entrar'>
+        <table>
+        <tr>
+        <td>Usuario: </td><td><input type='text' name='usuario'><td>
+        </tr>
+        <tr>
+        <td>Contraseña: </td><td><input type='password' name='pass'></td> 
+        </tr>
+        <tr>
+        <td><input type='submit' name='login' value='Entrar'></td>
+        </tr>
+        </table>
         </form>";
         return $respuesta;
     }
     
     public function register() {
         $respuesta = "<form action='index.php?action=register' method='POST' name='formulario_register'>
-        Usuario: <input type='text' name='usuario'> <br>
-        Contraseña: <input type='password' name='pass'> <br>
-        Repita la contraseña <input type='password' name='pass2'> <br>
-        <input type='submit' name='register' value='Registrar'>
+        <table bgcolor='lightblue'>
+        <tr>
+        <td>Usuario: </td><td><input type='text' name='usuario'></td>
+        </tr>
+        <tr>
+        <td>Contraseña: </td><td><input type='password' name='pass'><td>
+        </tr>
+        <tr>
+        <td>Repita la contraseña </td><td><input type='password' name='pass2'><td>
+        </tr>
+        <tr>
+        <td><input type='submit' name='register' value='Registrar'></td>
+        </tr>
+        </table>
         </form>";
         return $respuesta;
     }
@@ -208,11 +234,6 @@ class View {
         return $script;
     } 
     
-    public function cerrarSesion(){
-        //boton de cerrar sesion
-        return '<a href="index.php?action=destructorSesion">Cerrar Sesión </a>';
-        //return '<input type="button" onclick="location.href="controller.php?action=destructorSesion;" value="Cerrar Sesión" />';
-    }
     public function enviarPosicion(){
        $script='<script type="text/javascript">
         if (typeof navigator.geolocation == "object"){

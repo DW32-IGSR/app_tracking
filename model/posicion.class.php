@@ -19,7 +19,18 @@ class Posicion {
         //$this->model->insertarPosicion($latitud, $longitud, $hora, $id_usuario);
     }
     public function mostrar() {
-       	return "<form action='index.php?action=modificarPosicion' method='POST' name='varias'><td>$this->id_posicion</td> <input hidden name='id_posicion' value=$this->id_posicion /><td><input name='titulo' value='$this->titulo' /></td><td><input name='latitud' value=$this->latitud /></td><td><input name='longitud' value=$this->longitud /></td><td>$this->hora</td><td>$this->id_usuario</td><td> <input type='submit' name='editar' value='Editar'><input type='submit' name='borrar' value='Borrar'></td></form>";
+       	return "<form action='index.php?action=modificarPosicion' method='POST' name='varias'>
+       	<td>$this->id_posicion</td> <input hidden name='id_posicion' value=$this->id_posicion />
+       	<td><input name='titulo' value='$this->titulo' /></td>
+       	<td><input name='latitud' value=$this->latitud /></td>
+       	<td><input name='longitud' value=$this->longitud /></td>
+       	<td>$this->hora</td>
+       	<td>$this->id_usuario</td>
+       	<td> 
+           	<input type='submit' name='editar' value='Editar'>
+           	<input type='submit' name='borrar' value='Borrar'>
+       	</td>
+       	</form>";
     }
     
     /*public function formEditarPosicion() {
