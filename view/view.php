@@ -201,16 +201,16 @@ class View {
         $respuesta = "<form action='index.php?action=register' method='POST' name='formulario_register'>
         <table bgcolor='lightblue'>
         <tr>
-        <td>Usuario: </td><td><input type='text' name='usuario'></td>
+            <td>Usuario: </td><td><input type='text' name='usuario'></td>
         </tr>
         <tr>
-        <td>Contraseña: </td><td><input type='password' name='pass'><td>
+            <td>Contraseña: </td><td><input type='password' name='pass'><td>
         </tr>
         <tr>
-        <td>Repita la contraseña </td><td><input type='password' name='pass2'><td>
+            <td>Repita la contraseña </td><td><input type='password' name='pass2'><td>
         </tr>
         <tr>
-        <td><input type='submit' name='register' value='Registrar'></td>
+            <td><input type='submit' name='register' value='Registrar'></td>
         </tr>
         </table>
         </form>";

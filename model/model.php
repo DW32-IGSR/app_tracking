@@ -80,7 +80,7 @@ class Model {
             $posicion=new Posicion($row['id_posicion'],$row['latitud'],$row["longitud"],$row["hora"],$_SESSION['id_usuario'], $row['titulo']);
             $script=View::marcarPosicion($row['titulo'],$row['latitud'],$row["longitud"]);
             //$script=View::marcarPosicion($row['latitud'],$row["longitud"]);
-            $respuesta.= "<tr>".$posicion->mostrar()."</tr>\n".$script."\n";
+            $respuesta.= $posicion->mostrar()."\n".$script."\n";
         }
 
         return $respuesta;
